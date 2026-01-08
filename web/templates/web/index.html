@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div x-data="{ active: 'none', loaded: false, scrolled: false }" 
+     x-init="setTimeout(() => loaded = true, 300); window.addEventListener('scroll', () => { scrolled = window.scrollY > 50 })"
+     class="bg-black">
+    
+    <nav class="fixed top-0 w-full z-50 transition-all duration-500 border-b border-white/10 backdrop-blur-md"
+         :class="scrolled ? 'bg-black/80 py-4' : 'bg-transparent py-6 opacity-0 pointer-events-none'">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <span class="text-2xl font-serif font-bold text-white">EMC</span>
+            <div class="space-x-8 text-sm uppercase tracking-widest text-gray-300 hidden md:block">
+                <a href="#about" class="hover:text-white transition-colors">Story</a>
+                <a href="#reviews" class="hover:text-white transition-colors">Reviews</a>
+                <a href="#contact" class="hover:text-white transition-colors">Visit</a>
+            </div>
+            <a href="{% url 'book_table' %}" class="px-6 py-2 border border-white/30 rounded-full text-white text-xs uppercase tracking-widest hover:bg-white hover:text-black transition-colors">
+                Book Table
+            </a>
+        </div>
+    </nav>
+
+    <div class="h-screen w-full flex flex-col md:flex-row relative overflow-hidden">
+        
+        <div class="absolute inset-0 z-50 flex items-center justify-center bg-black transition-opacity duration-1000 pointer-events-none"
+             :class="loaded ? 'opacity-0' : 'opacity-100'">
+            <h1 class="text-4xl md:text-6xl text-white font-serif tracking-widest animate-pulse">EMC</h1>
+        </div>
+        
+        <div class="absolute inset-0 pointer-events-none z-40 flex flex-col items-center justify-center transition-all duration-700"
+             :class="active !== 'none' ? 'opacity-0 scale-90' : 'opacity-100 scale-100'">
+            <div class="border-y border-white/30 py-6 px-12 backdrop-blur-sm bg-black/20">
+                <h1 class="text-7xl md:text-9xl font-bold tracking-tighter text-white font-serif">EMC</h1>
+                <p class="text-center text-xl md:text-2xl tracking-[0.5em] text-gray-300 font-light mt-2 uppercase">Surat</p>
+            </div>
+            <p class="mt-8 text-white/50 text-sm tracking-widest animate-bounce">SCROLL OR HOVER TO EXPLORE</p>
+        </div>
+
+        <a href="{% url 'experience' 'kitchen' %}" class="relative h-[33vh] md:h-auto md:flex-1 group border-b md:border-b-0 md:border-r border-white/10 overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.25,0.8,0.25,1)]"
+           :class="(active === 'kitchen') ? 'md:grow-[2]' : (active !== 'none' ? 'md:grow-[0.5] opacity-50 grayscale' : '')"
+           @mouseenter="active = 'kitchen'" @mouseleave="active = 'none'">
+            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-[2000ms]" :class="active === 'kitchen' ? 'scale-110' : 'scale-100'" style="background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=1974&auto=format&fit=crop');">
+                 <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
+            </div>
+            <div class="relative z-10 h-full flex flex-col justify-end p-8 md:p-12 items-center md:items-start text-center md:text-left">
+                <h2 class="text-3xl md:text-5xl font-bold text-amber-50 font-serif">THE CAFE</h2>
+                <p class="text-amber-100/80 font-light tracking-wide mt-2" :class="active === 'kitchen' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'" class="transition-all duration-500">Coffee • Ramen • Fusion</p>
+            </div>
+        </a>
+
+        <a href="{% url 'experience' 'dadho' %}" class="relative h-[33vh] md:h-auto md:flex-1 group border-b md:border-b-0 md:border-r border-white/10 overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.25,0.8,0.25,1)]"
+           :class="(active === 'dadho') ? 'md:grow-[2]' : (active !== 'none' ? 'md:grow-[0.5] opacity-50 grayscale' : '')"
+           @mouseenter="active = 'dadho'" @mouseleave="active = 'none'">
+            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-[2000ms]" :class="active === 'dadho' ? 'scale-110' : 'scale-100'" style="background-image: url('https://images.unsplash.com/photo-1596797038530-2c107229654b?q=80&w=1935&auto=format&fit=crop');">
+                 <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
+            </div>
+            <div class="relative z-10 h-full flex flex-col justify-end p-8 md:p-12 items-center md:items-start text-center md:text-left">
+                <h2 class="text-3xl md:text-5xl font-bold text-orange-200 font-serif">DADHO SUTHO</h2>
+                 <p class="text-orange-100/80 font-light tracking-wide mt-2" :class="active === 'dadho' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'" class="transition-all duration-500">Authentic Sindhi Heritage</p>
+            </div>
+        </a>
+
+        <a href="{% url 'experience' 'zabardast' %}" class="relative h-[34vh] md:h-auto md:flex-1 group overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.25,0.8,0.25,1)]"
+           :class="(active === 'zabardast') ? 'md:grow-[2]' : (active !== 'none' ? 'md:grow-[0.5] opacity-50 grayscale' : '')"
+           @mouseenter="active = 'zabardast'" @mouseleave="active = 'none'">
+            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-[2000ms]" :class="active === 'zabardast' ? 'scale-110' : 'scale-100'" style="background-image: url('https://images.unsplash.com/photo-1561758033-d8f19662cb23?q=80&w=2070&auto=format&fit=crop');">
+                 <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
+            </div>
+            <div class="relative z-10 h-full flex flex-col justify-end p-8 md:p-12 items-center md:items-start text-center md:text-left">
+                <h2 class="text-3xl md:text-5xl font-bold text-yellow-300 font-serif">ZABARDAST</h2>
+                 <p class="text-yellow-100/80 font-light tracking-wide mt-2" :class="active === 'zabardast' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'" class="transition-all duration-500">Street Food Reimagined</p>
+            </div>
+        </a>
+    </div>
+
+    <section id="about" class="py-24 px-6 bg-zinc-900 border-t border-white/10">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="text-amber-500 text-sm tracking-[0.3em] uppercase mb-4 block">Our Philosophy</span>
+            <h2 class="text-4xl md:text-6xl font-serif text-white mb-8 leading-tight">One Location. <br> <span class="italic text-gray-500">Three Distinct Worlds.</span></h2>
+            <p class="text-xl text-gray-400 font-light leading-relaxed">
+                At EMC, we believe food is not just fuel; it is a memory. Whether you crave the comforting warmth of a Ramen bowl, the nostalgic spice of Sindhi Dal Pakwan, or the electric rush of a street-style wrap, we have curated a space where every palate finds its home.
+            </p>
+        </div>
+    </section>
+
+    <section id="reviews" class="py-24 bg-black relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 mb-12 flex justify-between items-end">
+            <div>
+                <h3 class="text-3xl text-white font-serif">They Love Us</h3>
+                <p class="text-gray-500 mt-2">Rated 4.4/5 on Google Reviews</p>
+            </div>
+            <div class="flex gap-1 text-amber-400">★★★★★</div>
+        </div>
+
+        <div class="flex overflow-x-auto gap-6 px-6 pb-8 hide-scrollbar snap-x snap-mandatory">
+            <div class="min-w-[300px] md:min-w-[400px] bg-zinc-900/50 p-8 border border-white/5 rounded-2xl snap-center shrink-0">
+                <p class="text-gray-300 italic mb-6">"Cafe EMC in Surat is a hidden gem that delights with its excellent service and delicious offerings. The staff is friendly and attentive..."</p>
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 bg-amber-500 rounded-full flex items-center justify-center text-black font-bold">V</div>
+                    <div>
+                        <p class="text-white font-bold text-sm">Vansh Samiyani</p>
+                        <p class="text-gray-600 text-xs">Local Guide</p>
+                    </div>
+                </div>
+            </div>
+
+             <div class="min-w-[300px] md:min-w-[400px] bg-zinc-900/50 p-8 border border-white/5 rounded-2xl snap-center shrink-0">
+                <p class="text-gray-300 italic mb-6">"Surat's Best and Cleanest Cafe. Great ambiance with fun games, books, and music that matches the vibe. A must visit."</p>
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-black font-bold">R</div>
+                    <div>
+                        <p class="text-white font-bold text-sm">Rahul Mehta</p>
+                        <p class="text-gray-600 text-xs">Food Critic</p>
+                    </div>
+                </div>
+            </div>
+
+             <div class="min-w-[300px] md:min-w-[400px] bg-zinc-900/50 p-8 border border-white/5 rounded-2xl snap-center shrink-0">
+                <p class="text-gray-300 italic mb-6">"The Ramen is authentic and the coffee is top tier. Love the fusion concept. Finally a place in Vesu that feels premium."</p>
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-black font-bold">P</div>
+                    <div>
+                        <p class="text-white font-bold text-sm">Priya Patel</p>
+                        <p class="text-gray-600 text-xs">Regular Customer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="bg-zinc-950 py-20 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            
+            <div>
+                <h2 class="text-5xl font-serif text-white mb-8">Visit Us.</h2>
+                <div class="space-y-6 text-gray-400 font-light">
+                    <div class="flex items-start gap-4">
+                        <span class="text-xl">📍</span>
+                        <p>Plot No. 5, VIP Road,<br>Opp. 7 Heavens Apartment, Next to Gail Colony,<br>Vesu, Surat, Gujarat 395007</p>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span class="text-xl">📞</span>
+                        <p>+91 96878 72715</p>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span class="text-xl">⏰</span>
+                        <p>Tue - Sun: 4:00 PM - 11:30 PM<br>(Monday Closed)</p>
+                    </div>
+                </div>
+                <div class="mt-10 flex gap-4">
+                    <button class="px-8 py-3 bg-white text-black font-bold tracking-widest uppercase text-sm hover:bg-gray-200 transition">Get Directions</button>
+                    <button class="px-8 py-3 border border-white/20 text-white font-bold tracking-widest uppercase text-sm hover:bg-white/10 transition">Call Now</button>
+                </div>
+            </div>
+
+            <a href="https://maps.google.com/?q=EMC+Surat" target="_blank" class="relative h-80 rounded-3xl overflow-hidden group block border border-white/10 cursor-pointer">
+                <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=2074&auto=format&fit=crop" 
+                     class="w-full h-full object-cover opacity-50 grayscale transition-all duration-[2000ms] ease-[cubic-bezier(0.25,1,0.5,1)] 
+                            group-hover:scale-125 group-hover:grayscale-0 group-hover:opacity-100">
+                
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80 transition-opacity duration-700 group-hover:opacity-40"></div>
+                
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="bg-black/40 backdrop-blur-md text-white px-8 py-4 rounded-2xl border border-white/10 shadow-2xl transform transition-all duration-500 group-hover:-translate-y-2 group-hover:bg-black/60 group-hover:border-amber-500/50">
+                        <div class="flex items-center gap-4">
+                            <span class="text-3xl animate-bounce">📍</span>
+                            <div class="text-left">
+                                <p class="font-bold text-lg tracking-wide">VIP Road, Vesu</p>
+                                <p class="text-[10px] text-amber-400 uppercase tracking-[0.2em] font-bold mt-1 group-hover:text-amber-300">Tap for Directions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        
+        <div class="text-center text-gray-600 text-xs mt-20 tracking-widest uppercase">
+            &copy; {% now "Y" %} EMC Surat • Crafted by Rachit Makwana
+        </div>
+    </footer>
+
+</div>
+{% endblock %}

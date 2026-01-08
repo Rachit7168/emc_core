@@ -1,0 +1,255 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-screen bg-black relative flex items-center justify-center p-4 overflow-hidden"
+     x-data="bookingSystem()">
+
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070" 
+             class="w-full h-full object-cover opacity-20 blur-sm scale-110 animate-pulse-slow">
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
+    </div>
+
+    <a href="{% url 'index' %}" class="absolute top-8 left-8 text-white/50 hover:text-white flex items-center gap-2 z-50 transition-colors">
+        <span>←</span> Exit
+    </a>
+
+    <div class="relative z-10 w-full max-w-4xl bg-zinc-900/90 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row h-[85vh] md:h-auto">
+        
+        <div class="w-full md:w-1/3 bg-black/50 p-8 border-r border-white/5 flex flex-col justify-between">
+            <div>
+                <h1 class="text-2xl font-serif text-white mb-8">Reservations</h1>
+                
+                <div class="space-y-6">
+                    <template x-for="(s, index) in steps" :key="index">
+                        <div class="flex items-center gap-4 opacity-50 transition-opacity"
+                             :class="currentStep >= index + 1 ? 'opacity-100' : ''">
+                            <div class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-xs"
+                                 :class="currentStep > index + 1 ? 'bg-amber-500 text-black border-amber-500' : (currentStep === index + 1 ? 'bg-white text-black' : '')">
+                                <span x-show="currentStep <= index + 1" x-text="index + 1"></span>
+                                <span x-show="currentStep > index + 1">✓</span>
+                            </div>
+                            <span class="text-sm uppercase tracking-widest" x-text="s"></span>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <div class="bg-white/5 p-6 rounded-xl border border-white/5 mt-8">
+                <p class="text-xs text-gray-500 uppercase tracking-widest mb-2">Your Selection</p>
+                <div class="space-y-1">
+                    <p class="text-white font-bold" x-text="formData.brand ? brands[formData.brand].name : '---'"></p>
+                    <p class="text-gray-400 text-sm" x-text="formData.date ? formData.date + ' at ' + formData.time : '---'"></p>
+                    <p class="text-amber-400 text-sm" x-show="selectedSeats.length > 0">
+                        Table <span x-text="selectedSeats.join(', ')"></span> (<span x-text="selectedSeats.length * 2"></span> Guests)
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full md:w-2/3 p-8 relative overflow-y-auto">
+            
+            <div x-show="currentStep === 1" x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 translate-y-4">
+                <h2 class="text-2xl text-white font-serif mb-6">Select Your Ambience</h2>
+                <div class="grid gap-4">
+                    <template x-for="(b, key) in brands" :key="key">
+                        <button @click="formData.brand = key; generateSeats(key); nextStep()"
+                                class="group flex items-center gap-6 p-6 rounded-2xl border border-white/10 hover:border-amber-500/50 hover:bg-white/5 transition-all text-left w-full">
+                            <div class="w-16 h-16 rounded-full bg-cover bg-center shadow-lg group-hover:scale-110 transition-transform"
+                                 :style="`background-image: url('${b.img}')`"></div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white mb-1" x-text="b.name"></h3>
+                                <p class="text-sm text-gray-400" x-text="b.desc"></p>
+                            </div>
+                        </button>
+                    </template>
+                </div>
+            </div>
+
+            <div x-show="currentStep === 2" x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 translate-y-4">
+                <h2 class="text-2xl text-white font-serif mb-6">Choose Date & Time</h2>
+                <div class="space-y-8">
+                    <input type="date" x-model="formData.date" class="w-full bg-black/30 border border-white/10 rounded-xl p-4 text-white focus:border-amber-500 outline-none">
+                    
+                    <div class="grid grid-cols-3 gap-3">
+                        <template x-for="time in timeSlots" :key="time">
+                            <button @click="formData.time = time"
+                                    class="py-3 rounded-lg border text-sm transition-all"
+                                    :class="formData.time === time ? 'bg-amber-500 border-amber-500 text-black font-bold' : 'border-white/10 text-gray-400 hover:border-white/50'">
+                                <span x-text="time"></span>
+                            </button>
+                        </template>
+                    </div>
+
+                    <div class="flex justify-end mt-8">
+                        <button @click="nextStep()" :disabled="!formData.date || !formData.time"
+                                class="px-8 py-3 bg-white text-black font-bold uppercase tracking-widest rounded-lg disabled:opacity-50 hover:bg-gray-200 transition">
+                            Select Seats →
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div x-show="currentStep === 3" x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 translate-y-4">
+                <div class="flex justify-between items-end mb-6">
+                    <h2 class="text-2xl text-white font-serif">Select Table</h2>
+                    <div class="flex gap-4 text-[10px] uppercase tracking-widest">
+                        <div class="flex items-center gap-2"><div class="w-3 h-3 rounded bg-zinc-700"></div> Occupied</div>
+                        <div class="flex items-center gap-2"><div class="w-3 h-3 rounded border border-white/30"></div> Available</div>
+                        <div class="flex items-center gap-2"><div class="w-3 h-3 rounded bg-amber-500"></div> Selected</div>
+                    </div>
+                </div>
+
+                <div class="bg-zinc-800/30 rounded-2xl p-8 border border-white/5 relative min-h-[400px]">
+                    
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-2 bg-zinc-700 rounded-b-xl flex items-center justify-center">
+                        <span class="text-[8px] uppercase tracking-widest text-gray-400 mt-4">Kitchen / Bar</span>
+                    </div>
+
+                    <div class="grid grid-cols-4 gap-8 mt-8">
+                        <template x-for="table in tables" :key="table.id">
+                            <button @click="toggleSeat(table.id)"
+                                    :disabled="table.status === 'occupied'"
+                                    class="relative group flex flex-col items-center justify-center p-4 rounded-xl transition-all duration-300"
+                                    :class="getSeatClass(table)">
+                                
+                                <div class="w-16 h-16 rounded-full flex items-center justify-center shadow-lg relative z-10 transition-transform group-hover:scale-105"
+                                     :class="table.status === 'selected' ? 'bg-amber-500 text-black' : (table.status === 'occupied' ? 'bg-zinc-700 text-gray-500' : 'bg-zinc-800 border border-white/20 text-white')">
+                                    <span class="font-bold font-serif" x-text="table.id"></span>
+                                </div>
+
+                                <div class="absolute -top-2 w-8 h-2 rounded-full" :class="table.status === 'selected' ? 'bg-amber-500' : 'bg-zinc-600'"></div>
+                                <div class="absolute -bottom-2 w-8 h-2 rounded-full" :class="table.status === 'selected' ? 'bg-amber-500' : 'bg-zinc-600'"></div>
+                                <div class="absolute -left-2 top-1/2 -translate-y-1/2 w-2 h-8 rounded-full" :class="table.status === 'selected' ? 'bg-amber-500' : 'bg-zinc-600'"></div>
+                                <div class="absolute -right-2 top-1/2 -translate-y-1/2 w-2 h-8 rounded-full" :class="table.status === 'selected' ? 'bg-amber-500' : 'bg-zinc-600'"></div>
+                            </button>
+                        </template>
+                    </div>
+                </div>
+                
+                <div class="flex justify-between mt-8">
+                    <button @click="currentStep--" class="text-gray-400 hover:text-white">← Back</button>
+                    <button @click="nextStep()" :disabled="selectedSeats.length === 0"
+                            class="px-8 py-3 bg-white text-black font-bold uppercase tracking-widest rounded-lg disabled:opacity-50 hover:bg-gray-200 transition">
+                        Confirm Selection
+                    </button>
+                </div>
+            </div>
+
+            <div x-show="currentStep === 4" x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 translate-y-4">
+                <h2 class="text-2xl text-white font-serif mb-6">Confirm Details</h2>
+                <div class="space-y-4">
+                    <input type="text" x-model="formData.name" placeholder="Your Name" class="w-full bg-black/30 border border-white/10 rounded-xl p-4 text-white focus:border-amber-500 outline-none">
+                    <input type="tel" x-model="formData.phone" placeholder="Phone Number" class="w-full bg-black/30 border border-white/10 rounded-xl p-4 text-white focus:border-amber-500 outline-none">
+                    
+                    <button @click="submitBooking()" :disabled="!formData.name"
+                            class="w-full py-4 mt-4 bg-amber-500 text-black font-bold uppercase tracking-widest rounded-lg hover:brightness-110 shadow-[0_0_20px_rgba(245,158,11,0.4)] transition">
+                        Book Now
+                    </button>
+                </div>
+            </div>
+
+            <div x-show="currentStep === 5" class="text-center py-20">
+                 <div class="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_0_30px_rgba(34,197,94,0.5)] animate-bounce">
+                    <svg class="w-12 h-12 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <h2 class="text-4xl font-serif text-white mb-4">Confirmed!</h2>
+                <p class="text-gray-400">See you at <span class="text-white font-bold" x-text="brands[formData.brand].name"></span>.</p>
+                <p class="text-sm text-gray-500 mt-2">Check your SMS for the ticket.</p>
+                <a href="{% url 'index' %}" class="mt-8 inline-block text-amber-500 hover:text-white transition">Back to Home</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function bookingSystem() {
+        return {
+            currentStep: 1,
+            steps: ['Ambience', 'Time', 'Seats', 'Confirm'],
+            timeSlots: ['7:00 PM', '7:30 PM', '8:00 PM', '8:30 PM', '9:00 PM'],
+            brands: {
+                'kitchen': { name: 'The Cafe', desc: 'Cozy & Warm', img: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=200' },
+                'dadho': { name: 'Dadho Sutho', desc: 'Heritage Vibe', img: 'https://images.unsplash.com/photo-1596797038530-2c107229654b?q=80&w=200' },
+                'zabardast': { name: 'Zabardast', desc: 'Fast & Loud', img: 'https://images.unsplash.com/photo-1561758033-d8f19662cb23?q=80&w=200' },
+            },
+            formData: { brand: '', date: '', time: '', name: '', phone: '' },
+            tables: [],
+            selectedSeats: [],
+
+            nextStep() {
+                if(this.currentStep < 5) this.currentStep++;
+            },
+
+            generateSeats(brandKey) {
+                this.tables = [];
+                // Create 12 tables with random occupied status
+                for(let i=1; i<=12; i++) {
+                    let status = Math.random() < 0.3 ? 'occupied' : 'available';
+                    this.tables.push({ id: i, status: status });
+                }
+                this.selectedSeats = [];
+            },
+
+            toggleSeat(id) {
+                let table = this.tables.find(t => t.id === id);
+                if(table.status === 'occupied') return;
+
+                if(table.status === 'selected') {
+                    table.status = 'available';
+                    this.selectedSeats = this.selectedSeats.filter(s => s !== id);
+                } else {
+                    // For demo, reset other selections if you want single-choice only.
+                    // To allow multiple tables, remove the next line:
+                    this.tables.forEach(t => { if(t.status === 'selected') t.status = 'available' });
+                    this.selectedSeats = [];
+                    
+                    table.status = 'selected';
+                    this.selectedSeats.push(id);
+                }
+            },
+
+            getSeatClass(table) {
+                if(table.status === 'occupied') return 'opacity-50 cursor-not-allowed grayscale';
+                if(table.status === 'selected') return 'scale-110';
+                return 'hover:scale-105 cursor-pointer';
+            },
+
+            submitBooking() {
+                // Prepare Data
+                const payload = {
+                    name: this.formData.name,
+                    phone: this.formData.phone,
+                    brand: this.formData.brand,
+                    date: this.formData.date,
+                    time: this.formData.time,
+                    guests: this.selectedSeats.length * 2 || 2, // Calculate guests based on seats
+                    table_id: this.selectedSeats[0] || null
+                };
+
+                // Send to Django
+                fetch('/api/book/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.status === 'success') {
+                        this.currentStep = 5; // Show Success Screen
+                    } else {
+                        alert('Error booking: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Something went wrong.');
+                });
+            }
+        }
+    }
+</script>
+{% endblock %}

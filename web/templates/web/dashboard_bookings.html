@@ -1,0 +1,51 @@
+{% extends 'web/dashboard_base.html' %}
+
+{% block dashboard_content %}
+<div class="flex justify-between items-center mb-10">
+    <h2 class="text-3xl font-bold text-white">All Bookings</h2>
+    <div class="flex gap-2">
+        <input type="text" placeholder="Search customer..." class="bg-zinc-900 border border-white/10 px-4 py-2 rounded-lg text-sm text-white focus:outline-none focus:border-amber-500">
+        <button class="bg-white/10 px-4 py-2 rounded-lg text-sm hover:bg-white/20">Filter</button>
+    </div>
+</div>
+
+<div class="bg-zinc-900/50 rounded-2xl border border-white/5 overflow-hidden">
+    <table class="w-full text-left border-collapse">
+        <thead class="bg-white/5 text-xs uppercase text-gray-400 font-bold">
+            <tr>
+                <th class="p-4">Customer</th>
+                <th class="p-4">Brand/Zone</th>
+                <th class="p-4">Date & Time</th>
+                <th class="p-4">Guests</th>
+                <th class="p-4">Table</th>
+                <th class="p-4">Status</th>
+                <th class="p-4">Actions</th>
+            </tr>
+        </thead>
+        <tbody class="text-sm divide-y divide-white/5">
+            {% for b in bookings %}
+            <tr class="hover:bg-white/5 transition">
+                <td class="p-4 font-bold text-white">{{ b.name }}<br><span class="text-xs text-gray-500 font-normal">{{ b.phone }}</span></td>
+                <td class="p-4">
+                    <span class="px-2 py-1 rounded text-xs border 
+                        {% if b.brand == 'kitchen' %}border-amber-500/30 text-amber-500{% elif b.brand == 'dadho' %}border-orange-500/30 text-orange-500{% else %}border-yellow-500/30 text-yellow-500{% endif %}">
+                        {{ b.get_brand_display }}
+                    </span>
+                </td>
+                <td class="p-4 text-gray-300">{{ b.date }}<br><span class="text-gray-500">{{ b.time }}</span></td>
+                <td class="p-4 text-gray-300">{{ b.guests }}</td>
+                <td class="p-4 text-gray-300">{% if b.table_id %}T-{{ b.table_id }}{% else %}-{% endif %}</td>
+                <td class="p-4">
+                    <span class="w-2 h-2 rounded-full inline-block mr-2 bg-green-500"></span> Confirmed
+                </td>
+                <td class="p-4">
+                    <button class="text-gray-400 hover:text-white px-2">Edit</button>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="7" class="p-8 text-center text-gray-500">No bookings found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

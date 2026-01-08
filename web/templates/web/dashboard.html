@@ -1,0 +1,113 @@
+{% extends 'web/dashboard_base.html' %}
+
+{% block dashboard_content %}
+    <div class="flex justify-between items-center mb-10">
+        <div>
+            <h2 class="text-3xl font-bold text-white">Live Overview</h2>
+            <p class="text-gray-500">Today, {% now "jS F Y" %}</p>
+        </div>
+        <div class="flex gap-4">
+            <a href="{% url 'dashboard_bookings' %}" class="bg-amber-500 text-black px-6 py-2 rounded-full font-bold text-sm hover:bg-white transition flex items-center gap-2">
+                <span>+</span> New Booking
+            </a>
+            <div class="w-10 h-10 bg-zinc-800 rounded-full flex items-center justify-center border border-white/10">
+                🔔
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+        <div class="bg-zinc-900/50 p-6 rounded-2xl border border-white/5 hover:border-amber-500/50 transition duration-300">
+            <p class="text-gray-500 text-xs uppercase tracking-widest mb-1">Total Revenue</p>
+            <h3 class="text-3xl font-bold text-white">{{ total_revenue }}</h3>
+            <p class="text-green-500 text-xs mt-2">▲ 12% vs yesterday</p>
+        </div>
+        <div class="bg-zinc-900/50 p-6 rounded-2xl border border-white/5 hover:border-blue-500/50 transition duration-300">
+            <p class="text-gray-500 text-xs uppercase tracking-widest mb-1">Active Tables</p>
+            <h3 class="text-3xl font-bold text-white">{{ active_tables }}<span class="text-lg text-gray-600">/20</span></h3>
+        </div>
+        <div class="bg-zinc-900/50 p-6 rounded-2xl border border-white/5 hover:border-purple-500/50 transition duration-300">
+            <p class="text-gray-500 text-xs uppercase tracking-widest mb-1">Upcoming</p>
+            <h3 class="text-3xl font-bold text-white">{{ upcoming_reservations }}</h3>
+            <p class="text-gray-500 text-xs mt-2">Next: 7:30 PM</p>
+        </div>
+        <div class="bg-gradient-to-br from-zinc-900 to-amber-900/20 p-6 rounded-2xl border border-amber-500/20">
+            <p class="text-amber-500 text-xs uppercase tracking-widest mb-1">Chef's Secret</p>
+            <h3 class="text-xl font-bold text-white mb-2">{{ secret_dish_status }}</h3>
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                <span class="text-xs text-gray-400">Live on Website</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 h-96">
+        <div class="lg:col-span-2 bg-zinc-900/50 p-6 rounded-2xl border border-white/5">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-lg font-bold">Traffic Pulse</h3>
+                <select class="bg-black border border-white/10 text-xs text-gray-400 rounded px-2 py-1 outline-none">
+                    <option>Last 24 Hours</option>
+                    <option>Last 7 Days</option>
+                </select>
+            </div>
+            <div class="h-64">
+                <canvas id="trafficChart"></canvas>
+            </div>
+        </div>
+
+        <div class="bg-zinc-900/50 p-6 rounded-2xl border border-white/5 overflow-hidden flex flex-col">
+            <h3 class="text-lg font-bold mb-6">Live Feed</h3>
+            <div class="space-y-4 overflow-y-auto pr-2 custom-scrollbar">
+                {% for booking in recent_bookings %}
+                <div class="flex items-start gap-4 p-3 rounded-lg hover:bg-white/5 transition cursor-pointer group">
+                    <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-xs font-bold border border-white/10 group-hover:border-white/30">
+                        {{ booking.name|slice:":1" }}
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex justify-between">
+                            <h4 class="text-sm font-bold text-white">{{ booking.name }}</h4>
+                            <span class="text-[10px] text-gray-500">{{ booking.created_at|timesince }} ago</span>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-1">
+                            <span class="text-white">{{ booking.guests }} Guests</span> • {{ booking.get_brand_display }}
+                        </p>
+                    </div>
+                    <span class="w-2 h-2 rounded-full mt-2 bg-green-500"></span>
+                </div>
+                {% empty %}
+                <div class="text-gray-500 text-center py-4">No recent activity.</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('trafficChart').getContext('2d');
+        const trafficChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['12 PM', '2 PM', '4 PM', '5 PM', '6 PM', '7 PM', '8 PM', '9 PM', '10 PM'],
+                datasets: [{
+                    label: 'Guests',
+                    data: {{ chart_data }},
+                    borderColor: '#f59e0b',
+                    backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    pointBackgroundColor: '#000',
+                    pointBorderColor: '#f59e0b',
+                    pointBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#6b7280' } },
+                    x: { grid: { display: false }, ticks: { color: '#6b7280' } }
+                }
+            }
+        });
+    </script>
+{% endblock %}
