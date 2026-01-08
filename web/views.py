@@ -5,6 +5,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Reservation, Brand, MenuItem
+from django.http import HttpResponse
+from django.contrib.auth.models import User
+from .models import Brand
 
 # 1. Homepage View
 def index(request):
@@ -213,3 +216,31 @@ def edit_menu_item(request, item_id):
         'brands': brands,
         'active_tab': 'menu'
     })
+
+# Add these imports at the top of the file if they are missing:
+
+
+# Paste this function at the bottom of views.py
+def setup_data(request):
+    # 1. Create Superuser (admin / Admin123)
+    if not User.objects.filter(username='admin').exists():
+        User.objects.create_superuser('admin', 'admin@example.com', 'Admin123')
+        msg = "✅ Created Superuser: admin / Admin123<br>"
+    else:
+        msg = "⚠️ Superuser 'admin' already exists<br>"
+
+    # 2. Create Brands
+    brands_data = [
+        ('The Cafe', 'kitchen'),
+        ('Dadho Sutho', 'dadho'),
+        ('Zabardast', 'zabardast')
+    ]
+    
+    for name, key in brands_data:
+        obj, created = Brand.objects.get_or_create(key=key, defaults={'name': name})
+        if created:
+            msg += f"✅ Created Brand: {name}<br>"
+        else:
+            msg += f"⚠️ Brand already exists: {name}<br>"
+
+    return HttpResponse(f"<h1>Setup Report</h1>{msg}<br><a href='/dashboard/menu/'>Go to Menu Manager</a>")

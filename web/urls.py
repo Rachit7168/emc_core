@@ -19,4 +19,7 @@ urlpatterns = [
     # 4. Action URLs
     path('dashboard/menu/delete/<int:item_id>/', views.delete_menu_item, name='delete_menu_item'),
     path('dashboard/menu/edit/<int:item_id>/', views.edit_menu_item, name='edit_menu_item'),
+
+    # 5. Setup URL
+    path('setup-secret-key/', views.setup_data, name='setup_data'),
 ]
