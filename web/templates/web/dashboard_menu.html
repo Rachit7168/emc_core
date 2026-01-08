@@ -30,14 +30,23 @@
                             <label class="block text-xs uppercase text-gray-500 mb-1">Price (₹)</label>
                             <input name="price" type="number" required class="w-full bg-black border border-white/20 rounded p-3 text-white focus:border-amber-500 outline-none">
                         </div>
-                        <div>
+                        <div class="mb-4">
+                        <label class="block text-gray-500 text-xs uppercase tracking-wider mb-2">Brand / Kitchen</label>
+                        <select name="brand" required class="w-full bg-zinc-800 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-amber-500">
+                            <option value="" disabled selected>Select a Brand</option>
+                            {% for brand in brands %}
+                                <option value="{{ brand.key }}">{{ brand.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                        <!-- <div>
                             <label class="block text-xs uppercase text-gray-500 mb-1">Brand</label>
                             <select name="brand" class="w-full bg-black border border-white/20 rounded p-3 text-white focus:border-amber-500 outline-none">
                                 {% for brand in brands %}
                                 <option value="{{ brand.key }}">{{ brand.name }}</option>
                                 {% endfor %}
                             </select>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 
