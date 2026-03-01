@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMC² Cafe | Surat</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --accent-gold: #d4af37;
+            --accent-glow: rgba(212, 175, 55, 0.4);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            background-image:
+                radial-gradient(circle at 15% 50%, rgba(212, 175, 55, 0.08), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(255, 255, 255, 0.03), transparent 25%);
+        }
+
+        h1,
+        h2,
+        h3,
+        .brand {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        nav.scrolled {
+            padding: 1rem 4rem;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo span {
+            color: var(--accent-gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
+
+        .btn-book {
+            padding: 0.8rem 2rem;
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            color: white;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .btn-book::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-book:hover::before {
+            left: 100%;
+        }
+
+        .btn-book:hover {
+            background: white;
+            color: black;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            text-align: center;
+        }
+
+        .hero-content {
+            z-index: 10;
+            transform: translateY(0);
+            opacity: 1;
+            transition: var(--transition);
+        }
+
+        .hero h1 {
+            font-size: 8rem;
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -2px;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 span {
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            letter-spacing: 8px;
+            text-transform: uppercase;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            opacity: 0.6;
+            animation: float 2s infinite ease-in-out;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, white, transparent);
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(-50%, 0);
+            }
+
+            50% {
+                transform: translate(-50%, 10px);
+            }
+        }
+
+        /* The Three Worlds */
+        .worlds {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            padding: 2rem;
+            gap: 1rem;
+        }
+
+        .world-card {
+            flex: 1;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            border: 1px solid var(--glass-border);
+        }
+
+        .world-card:hover {
+            flex: 3;
+            box-shadow: 0 0 40px var(--accent-glow);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .world-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            transition: transform 1s;
+            filter: grayscale(50%) brightness(0.6);
+        }
+
+        .world-card:hover .world-bg {
+            transform: scale(1.05);
+            filter: grayscale(0%) brightness(0.8);
+        }
+
+        .world-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 3rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            transform: translateY(20px);
+            transition: var(--transition);
+            opacity: 0.8;
+        }
+
+        .world-card:hover .world-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .world-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .world-desc {
+            color: var(--accent-gold);
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .world-detail {
+            height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.5s;
+            margin-top: 1rem;
+            color: #ddd;
+            line-height: 1.6;
+        }
+
+        .world-card:hover .world-detail {
+            height: 60px;
+            opacity: 1;
+        }
+
+        /* Philosophy */
+        .philosophy {
+            padding: 10rem 4rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .phi-tag {
+            color: var(--accent-gold);
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            display: block;
+        }
+
+        .phi-title {
+            font-size: 4rem;
+            font-weight: 300;
+            max-width: 1000px;
+            margin: 0 auto 3rem;
+            line-height: 1.2;
+        }
+
+        .phi-desc {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Interactive Menu Marquee */
+        .marquee-section {
+            padding: 5rem 0;
+            background: var(--glass-bg);
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+            overflow: hidden;
+            white-space: nowrap;
+            display: flex;
+        }
+
+        .marquee-content {
+            display: inline-flex;
+            animation: marquee 30s linear infinite;
+        }
+
+        .marquee-item {
+            font-size: 4rem;
+            font-family: 'Outfit';
+            font-weight: 900;
+            margin: 0 3rem;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+            transition: var(--transition);
+            cursor: default;
+        }
+
+        .marquee-item:hover {
+            color: white;
+            -webkit-text-stroke: 0;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Reviews */
+        .reviews {
+            padding: 10rem 4rem;
+        }
+
+        .section-header {
+            margin-bottom: 5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 300;
+        }
+
+        .rating {
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            letter-spacing: 5px;
+        }
+
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .review-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 3rem;
+            border-radius: 20px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .review-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(212, 175, 55, 0.1), transparent 50%);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .review-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .review-card:hover::after {
+            opacity: 1;
+        }
+
+        .review-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ccc;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .review-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: black;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .author-info h4 {
+            font-size: 1rem;
+        }
+
+        .author-info p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--glass-border);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .footer-content {
+            padding: 8rem 4rem;
+        }
+
+        .footer-title {
+            font-size: 4rem;
+            line-height: 1;
+            margin-bottom: 3rem;
+        }
+
+        .contact-info {
+            margin-bottom: 4rem;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            opacity: 0.5;
+        }
+
+        .contact-text {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .footer-map {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-map img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) brightness(0.4);
+            transition: var(--transition);
+        }
+
+        .footer-map:hover img {
+            filter: grayscale(0%) brightness(0.8);
+            transform: scale(1.05);
+        }
+
+        .map-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .map-btn {
+            padding: 1rem 3rem;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: var(--transition);
+            pointer-events: auto;
+            text-decoration: none;
+        }
+
+        .footer-map:hover .map-btn {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .copyright {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        /* Utility specific custom responsive */
+        @media (max-width: 1024px) {
+            .worlds {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .world-card {
+                height: 300px;
+            }
+
+            .review-grid {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-map {
+                height: 400px;
+            }
+
+            .hero h1 {
+                font-size: 5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1.5rem 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .phi-title {
+                font-size: 2.5rem;
+            }
+
+            .hero h1 {
+                font-size: 4rem;
+            }
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading Overlay */
+        .loader {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-color);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1s;
+        }
+
+        .loader-text {
+            font-size: 3rem;
+            font-family: 'Outfit';
+            font-weight: 300;
+            letter-spacing: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Initial Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-text">E=MC²</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="#" class="logo">E=MC<span>²</span></a>
+        <div class="nav-links">
+            <a href="#worlds">Experiences</a>
+            <a href="#philosophy">Story</a>
+            <a href="#reviews">Reviews</a>
+            <a href="#contact">Visit</a>
+        </div>
+        <a href="#book" class="btn-book">Reserve Table</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>CAFE <span>EMC²</span></h1>
+            <p>Surat's Premium Fusion Hub</p>
+        </div>
+        <div class="scroll-indicator">
+            <span style="font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase;">Discover</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- The Three Worlds -->
+    <section id="worlds" class="worlds">
+        <!-- The Cafe -->
+        <div class="world-card">
+            <div class="world-bg"
+                style="background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=1974&auto=format&fit=crop');">
+            </div>
+            <div class="world-content">
+                <h2 class="world-title">The Cafe</h2>
+                <div class="world-desc">Coffee • Ramen • Fusion</div>
+                <div class="world-detail">Experience artisanal coffee roasts and authentic ramen bowls in an atmosphere
+                    designed for comfort, creativity, and connection.</div>
+            </div>
+        </div>
+
+        <!-- Dadho Sutho -->
+        <div class="world-card">
+            <div class="world-bg"
+                style="background-image: url('https://images.unsplash.com/photo-1596797038530-2c107229654b?q=80&w=1935&auto=format&fit=crop');">
+            </div>
+            <div class="world-content">
+                <h2 class="world-title">Dadho Sutho</h2>
+                <div class="world-desc">Authentic Sindhi Heritage</div>
+                <div class="world-detail">A nostalgic journey through the rich, aromatic spices of traditional Sindhi
+                    cuisine, served with love and legacy.</div>
+            </div>
+        </div>
+
+        <!-- Zabardast -->
+        <div class="world-card">
+            <div class="world-bg"
+                style="background-image: url('https://images.unsplash.com/photo-1561758033-d8f19662cb23?q=80&w=2070&auto=format&fit=crop');">
+            </div>
+            <div class="world-content">
+                <h2 class="world-title">Zabardast</h2>
+                <div class="world-desc">Street Food Reimagined</div>
+                <div class="world-detail">The electric energy of Indian street food, elevated with premium ingredients
+                    wrapped in unforgettable flavors.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy -->
+    <section id="philosophy" class="philosophy reveal">
+        <span class="phi-tag">Our Vision</span>
+        <h2 class="phi-title">One Location. <br><span style="color: var(--text-muted); font-style: italic;">Three
+                Distinct Worlds.</span></h2>
+        <p class="phi-desc">
+            At EMC², we believe food is not just fuel; it is a memory. Whether you crave the comforting warmth of a
+            Ramen bowl, the nostalgic spice of Sindhi Dal Pakwan, or the electric rush of a street-style wrap, we have
+            curated a space where every palate finds its masterfully crafted home.
+        </p>
+    </section>
+
+    <!-- Marquee -->
+    <div class="marquee-section">
+        <div class="marquee-content">
+            <span class="marquee-item">ARTISANAL COFFEE</span>
+            <span class="marquee-item">•</span>
+            <span class="marquee-item">AUTHENTIC RAMEN</span>
+            <span class="marquee-item">•</span>
+            <span class="marquee-item">SINDHI DELIGHTS</span>
+            <span class="marquee-item">•</span>
+            <span class="marquee-item">PREMIUM STREET FOOD</span>
+            <span class="marquee-item">•</span>
+            <span class="marquee-item">ARTISANAL COFFEE</span>
+            <span class="marquee-item">•</span>
+            <span class="marquee-item">AUTHENTIC RAMEN</span>
+            <span class="marquee-item">•</span>
+            <span class="marquee-item">SINDHI DELIGHTS</span>
+            <span class="marquee-item">•</span>
+            <span class="marquee-item">PREMIUM STREET FOOD</span>
+        </div>
+    </div>
+
+    <!-- Reviews -->
+    <section id="reviews" class="reviews">
+        <div class="section-header reveal">
+            <h2 class="section-title">Experiences<br><span style="color: var(--accent-gold);">Shared.</span></h2>
+            <div class="rating">★★★★★ <span
+                    style="font-size: 1rem; color: var(--text-muted); font-family: 'Inter'; letter-spacing: 0;">4.4/5 on
+                    Google</span></div>
+        </div>
+
+        <div class="review-grid">
+            <div class="review-card reveal">
+                <p class="review-text">"Cafe EMC in Surat is a hidden gem that delights with its excellent service and
+                    delicious offerings. The fusion concept is genuinely executed nicely."</p>
+                <div class="review-author">
+                    <div class="author-avatar" style="background: #e2e8f0; color: #1e293b;">V</div>
+                    <div class="author-info">
+                        <h4>Vansh Samiyani</h4>
+                        <p>Local Guide</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-card reveal" style="transition-delay: 0.1s;">
+                <p class="review-text">"Surat's Best and Cleanest Cafe. Great ambiance with fun games, books, and music
+                    that matches the vibe. A must visit for weekends."</p>
+                <div class="review-author">
+                    <div class="author-avatar" style="background: #fcd34d; color: #92400e;">R</div>
+                    <div class="author-info">
+                        <h4>Rahul Mehta</h4>
+                        <p>Food Critic</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-card reveal" style="transition-delay: 0.2s;">
+                <p class="review-text">"The Ramen is authentic and the coffee is top tier. Love the three distinct brand
+                    experience. Finally a place in Vesu that feels truly premium."</p>
+                <div class="review-author">
+                    <div class="author-avatar" style="background: #fdba74; color: #9a3412;">P</div>
+                    <div class="author-info">
+                        <h4>Priya Patel</h4>
+                        <p>Regular Customer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content reveal">
+            <h2 class="footer-title">Let's Meet.</h2>
+
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-text">Plot No. 5, VIP Road,<br>Opp. 7 Heavens Apartment, Next to Gail
+                        Colony,<br>Vesu, Surat, Gujarat 395007</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-text">+91 96878 72715</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">🕰️</div>
+                    <div class="contact-text">Tue - Sun: 4:00 PM - 11:30 PM<br>(Monday Closed)</div>
+                </div>
+            </div>
+
+            <a href="#book" class="btn-book" style="display: inline-block;">Make a Reservation</a>
+        </div>
+
+        <a href="https://maps.google.com/?q=EMC+Surat" target="_blank" class="footer-map">
+            <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=2074&auto=format&fit=crop"
+                alt="Cafe Location">
+            <div class="map-overlay">
+                <div class="map-btn">
+                    <span style="font-size: 1.5rem;">📍</span>
+                    <div>
+                        <div style="font-weight: bold; font-family: 'Outfit';">VIP Road, Vesu</div>
+                        <div
+                            style="font-size: 0.7rem; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 2px;">
+                            Tap for Directions</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <div class="copyright">
+            &copy; 2026 EMC² Cafe Surat • All Rights Reserved
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    document.querySelector('.hero-content').style.transform = 'translateY(0)';
+                }, 1000);
+            }, 800);
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Reveal Animations on Scroll
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            revealElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
+                    el.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Trigger once on load
+
+        // Smooth Scroll for Nav Links
+        document.querySelectorAll('a[href^=\"#\"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
