@@ -4,20 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EMC² Cafe | Surat</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&family=Inter:wght@300;400;600&display=swap"
-        rel="stylesheet">
+    <title>EMC Cafe | Vesu, Surat</title>
+    <!-- Warm, elegant fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #050505;
-            --text-main: #ffffff;
-            --text-muted: #888888;
-            --accent-gold: #d4af37;
-            --accent-glow: rgba(212, 175, 55, 0.4);
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            /* Warm, cozy color palette */
+            --bg-dark: #120f0d;
+            --bg-card: #1c1816;
+            --text-main: #f4ece6;
+            --text-muted: #a89f91;
+            --accent-gold: #d9a05b;
+            --accent-hover: #b8864b;
+            --glass-border: rgba(217, 160, 91, 0.15);
+            --transition: all 0.4s ease;
         }
 
         * {
@@ -27,48 +27,94 @@
         }
 
         body {
-            background-color: var(--bg-color);
+            background-color: var(--bg-dark);
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
-            background-image:
-                radial-gradient(circle at 15% 50%, rgba(212, 175, 55, 0.08), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(255, 255, 255, 0.03), transparent 25%);
+            line-height: 1.6;
         }
 
-        h1,
-        h2,
-        h3,
-        .brand {
-            font-family: 'Outfit', sans-serif;
+        h1, h2, h3, h4, .serif {
+            font-family: 'Playfair Display', serif;
         }
 
-        /* Navbar */
+        /* Typography */
+        .section-title {
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: var(--accent-gold);
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 4rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--accent-gold);
+            color: var(--bg-dark);
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 2px;
+            transition: var(--transition);
+            border: 1px solid var(--accent-gold);
+        }
+
+        .btn:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--accent-gold);
+        }
+
+        .btn-outline:hover {
+            background: var(--accent-gold);
+            color: var(--bg-dark);
+        }
+
+        /* Navigation */
         nav {
             position: fixed;
-            width: 100%;
             top: 0;
-            z-index: 1000;
-            padding: 2rem 4rem;
+            width: 100%;
+            padding: 1.5rem 4rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            z-index: 1000;
             transition: var(--transition);
         }
 
         nav.scrolled {
+            background: rgba(18, 15, 13, 0.95);
+            backdrop-filter: blur(10px);
             padding: 1rem 4rem;
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--glass-border);
         }
 
         .logo {
+            font-family: 'Playfair Display', serif;
             font-size: 2rem;
-            font-weight: 900;
-            letter-spacing: 2px;
+            font-weight: 700;
+            color: var(--text-main);
             text-decoration: none;
-            color: white;
+            letter-spacing: 2px;
         }
 
         .logo span {
@@ -81,542 +127,25 @@
         }
 
         .nav-links a {
-            color: var(--text-muted);
+            color: var(--text-main);
             text-decoration: none;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
             transition: var(--transition);
         }
 
         .nav-links a:hover {
-            color: var(--text-main);
-        }
-
-        .btn-book {
-            padding: 0.8rem 2rem;
-            border: 1px solid var(--glass-border);
-            border-radius: 50px;
-            color: white;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 1.5px;
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-            transition: var(--transition);
-        }
-
-        .btn-book::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn-book:hover::before {
-            left: 100%;
-        }
-
-        .btn-book:hover {
-            background: white;
-            color: black;
+            color: var(--accent-gold);
         }
 
         /* Hero Section */
         .hero {
             height: 100vh;
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
             text-align: center;
-        }
-
-        .hero-content {
-            z-index: 10;
-            transform: translateY(0);
-            opacity: 1;
-            transition: var(--transition);
-        }
-
-        .hero h1 {
-            font-size: 8rem;
-            font-weight: 900;
-            line-height: 1;
-            letter-spacing: -2px;
-            margin-bottom: 1rem;
-        }
-
-        .hero h1 span {
-            color: transparent;
-            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            letter-spacing: 8px;
-            text-transform: uppercase;
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 3rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-            opacity: 0.6;
-            animation: float 2s infinite ease-in-out;
-        }
-
-        .scroll-line {
-            width: 1px;
-            height: 40px;
-            background: linear-gradient(to bottom, white, transparent);
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translate(-50%, 0);
-            }
-
-            50% {
-                transform: translate(-50%, 10px);
-            }
-        }
-
-        /* The Three Worlds */
-        .worlds {
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-            padding: 2rem;
-            gap: 1rem;
-        }
-
-        .world-card {
-            flex: 1;
-            border-radius: 20px;
-            overflow: hidden;
-            position: relative;
-            cursor: pointer;
-            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-            border: 1px solid var(--glass-border);
-        }
-
-        .world-card:hover {
-            flex: 3;
-            box-shadow: 0 0 40px var(--accent-glow);
-            border-color: rgba(212, 175, 55, 0.3);
-        }
-
-        .world-bg {
-            position: absolute;
-            inset: 0;
-            background-size: cover;
-            background-position: center;
-            transition: transform 1s;
-            filter: grayscale(50%) brightness(0.6);
-        }
-
-        .world-card:hover .world-bg {
-            transform: scale(1.05);
-            filter: grayscale(0%) brightness(0.8);
-        }
-
-        .world-content {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 3rem;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
-            transform: translateY(20px);
-            transition: var(--transition);
-            opacity: 0.8;
-        }
-
-        .world-card:hover .world-content {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .world-title {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-        }
-
-        .world-desc {
-            color: var(--accent-gold);
-            font-size: 1rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .world-detail {
-            height: 0;
-            overflow: hidden;
-            opacity: 0;
-            transition: all 0.5s;
-            margin-top: 1rem;
-            color: #ddd;
-            line-height: 1.6;
-        }
-
-        .world-card:hover .world-detail {
-            height: 60px;
-            opacity: 1;
-        }
-
-        /* Philosophy */
-        .philosophy {
-            padding: 10rem 4rem;
-            text-align: center;
-            position: relative;
-        }
-
-        .phi-tag {
-            color: var(--accent-gold);
-            font-size: 0.9rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin-bottom: 2rem;
-            display: block;
-        }
-
-        .phi-title {
-            font-size: 4rem;
-            font-weight: 300;
-            max-width: 1000px;
-            margin: 0 auto 3rem;
-            line-height: 1.2;
-        }
-
-        .phi-desc {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 700px;
-            margin: 0 auto;
-            line-height: 1.8;
-        }
-
-        /* Interactive Menu Marquee */
-        .marquee-section {
-            padding: 5rem 0;
-            background: var(--glass-bg);
-            border-top: 1px solid var(--glass-border);
-            border-bottom: 1px solid var(--glass-border);
-            overflow: hidden;
-            white-space: nowrap;
-            display: flex;
-        }
-
-        .marquee-content {
-            display: inline-flex;
-            animation: marquee 30s linear infinite;
-        }
-
-        .marquee-item {
-            font-size: 4rem;
-            font-family: 'Outfit';
-            font-weight: 900;
-            margin: 0 3rem;
-            color: transparent;
-            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
-            transition: var(--transition);
-            cursor: default;
-        }
-
-        .marquee-item:hover {
-            color: white;
-            -webkit-text-stroke: 0;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-        }
-
-        @keyframes marquee {
-            0% {
-                transform: translateX(0);
-            }
-
-            100% {
-                transform: translateX(-50%);
-            }
-        }
-
-        /* Reviews */
-        .reviews {
-            padding: 10rem 4rem;
-        }
-
-        .section-header {
-            margin-bottom: 5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-
-        .section-title {
-            font-size: 3rem;
-            font-weight: 300;
-        }
-
-        .rating {
-            color: var(--accent-gold);
-            font-size: 1.5rem;
-            letter-spacing: 5px;
-        }
-
-        .review-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-
-        .review-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            padding: 3rem;
-            border-radius: 20px;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .review-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at top right, rgba(212, 175, 55, 0.1), transparent 50%);
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .review-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .review-card:hover::after {
-            opacity: 1;
-        }
-
-        .review-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #ccc;
-            margin-bottom: 2rem;
-            font-style: italic;
-        }
-
-        .review-author {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .author-avatar {
-            width: 50px;
-            height: 50px;
-            background: var(--accent-gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: black;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .author-info h4 {
-            font-size: 1rem;
-        }
-
-        .author-info p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        /* Footer */
-        footer {
-            border-top: 1px solid var(--glass-border);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-        }
-
-        .footer-content {
-            padding: 8rem 4rem;
-        }
-
-        .footer-title {
-            font-size: 4rem;
-            line-height: 1;
-            margin-bottom: 3rem;
-        }
-
-        .contact-info {
-            margin-bottom: 4rem;
-        }
-
-        .contact-item {
-            display: flex;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .contact-icon {
-            font-size: 1.5rem;
-            opacity: 0.5;
-        }
-
-        .contact-text {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-
-        .footer-map {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .footer-map img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(100%) brightness(0.4);
-            transition: var(--transition);
-        }
-
-        .footer-map:hover img {
-            filter: grayscale(0%) brightness(0.8);
-            transform: scale(1.05);
-        }
-
-        .map-overlay {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            pointer-events: none;
-        }
-
-        .map-btn {
-            padding: 1rem 3rem;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: 50px;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            transition: var(--transition);
-            pointer-events: auto;
-            text-decoration: none;
-        }
-
-        .footer-map:hover .map-btn {
-            border-color: var(--accent-gold);
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
-        }
-
-        .copyright {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 2rem;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border-top: 1px solid var(--glass-border);
-        }
-
-        /* Utility specific custom responsive */
-        @media (max-width: 1024px) {
-            .worlds {
-                flex-direction: column;
-                height: auto;
-            }
-
-            .world-card {
-                height: 300px;
-            }
-
-            .review-grid {
-                grid-template-columns: 1fr;
-            }
-
-            footer {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-map {
-                height: 400px;
-            }
-
-            .hero h1 {
-                font-size: 5rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            nav {
-                padding: 1.5rem 2rem;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .phi-title {
-                font-size: 2.5rem;
-            }
-
-            .hero h1 {
-                font-size: 4rem;
-            }
-        }
-
-        /* Animations */
-        .reveal {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        
-        .cursor-glow {
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            mix-blend-mode: screen;
-            transition: width 0.3s, height 0.3s, background 0.3s;
         }
 
         .hero::before {
@@ -626,8 +155,6 @@
             background-image: url('assets/hero_bg.png');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
-            opacity: 0.5;
             z-index: 1;
         }
 
@@ -635,66 +162,424 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(to bottom, transparent, var(--bg-color));
+            background: linear-gradient(
+                to bottom,
+                rgba(18, 15, 13, 0.6) 0%,
+                rgba(18, 15, 13, 0.8) 50%,
+                var(--bg-dark) 100%
+            );
             z-index: 2;
         }
-        
-        .hero-content, .scroll-indicator {
+
+        .hero-content {
+            position: relative;
             z-index: 10;
+            max-width: 800px;
+            padding: 0 2rem;
         }
 
-        /* Float animation for extra elements */
-        .floating-element {
-            position: absolute;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
-            border-radius: 50%;
+        .hero-title {
+            font-size: 5.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            letter-spacing: 1px;
+        }
+
+        .hero-buttons {
             display: flex;
-            align-items: center;
+            gap: 1.5rem;
             justify-content: center;
-            animation: float-random 10s infinite alternate ease-in-out;
-            z-index: 5;
-            color: var(--accent-gold);
-            font-family: 'Outfit';
-            font-weight: 700;
         }
 
-        @keyframes float-random {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            100% { transform: translate(30px, -40px) rotate(10deg); }
-        }
-
-
-        /* Loading Overlay */
-        .loader {
-            position: fixed;
-            inset: 0;
-            background: var(--bg-color);
-            z-index: 2000;
-            display: flex;
-            justify-content: center;
+        /* Story / Ambience Section */
+        .story {
+            padding: 8rem 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
             align-items: center;
-            transition: opacity 1s;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .loader-text {
+        .story-image {
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .story-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.7s ease;
+        }
+
+        .story-image:hover img {
+            transform: scale(1.03);
+        }
+
+        .story-content h2 {
             font-size: 3rem;
-            font-family: 'Outfit';
-            font-weight: 300;
-            letter-spacing: 10px;
-            animation: pulse 2s infinite;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
         }
 
-        @keyframes pulse {
+        .story-content p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
 
-            0%,
-            100% {
-                opacity: 0.3;
+        /* Menu Highlights */
+        .menu-highlights {
+            padding: 8rem 4rem;
+            background: var(--bg-card);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .menu-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            group: hover;
+        }
+
+        .menu-item-image {
+            width: 100%;
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .menu-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+
+        .menu-item:hover .menu-item-image img {
+            transform: scale(1.05);
+        }
+        
+        .menu-item-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(18, 15, 13, 0.4), transparent);
+            pointer-events: none;
+        }
+
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px dashed var(--glass-border);
+            padding-bottom: 1rem;
+        }
+
+        .menu-item-title {
+            font-size: 2rem;
+            color: var(--text-main);
+        }
+
+        .menu-item-price {
+            font-family: 'Inter', sans-serif;
+            color: var(--accent-gold);
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+
+        .menu-item-desc {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* Footer & Reservation */
+        footer {
+            padding: 8rem 4rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: var(--accent-gold);
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-bottom: 4rem;
+            color: var(--text-muted);
+        }
+
+        .contact-block h4 {
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-block p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .copyright {
+            margin-top: 6rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Utilities */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        
+        /* Chef Special */
+        .chef-special {
+            padding: 8rem 4rem;
+            background: var(--bg-dark);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .chef-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('assets/chef_plating.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            opacity: 0.2;
+            z-index: 1;
+        }
+
+        .chef-content {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            padding: 4rem;
+            background: rgba(18, 15, 13, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+        }
+
+        .chef-content h3 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-gold);
+        }
+
+        /* Coffee Section */
+        .coffee-section {
+            padding: 8rem 4rem;
+            background: var(--bg-card);
+        }
+
+        .coffee-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 6rem;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .coffee-images {
+            position: relative;
+            height: 600px;
+        }
+
+        .coffee-img-1 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 70%;
+            height: 70%;
+            object-fit: cover;
+            border-radius: 4px;
+            z-index: 2;
+            box-shadow: 20px 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .coffee-img-2 {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 60%;
+            height: 60%;
+            object-fit: cover;
+            border-radius: 4px;
+            z-index: 1;
+            opacity: 0.8;
+            filter: grayscale(20%);
+        }
+
+        .coffee-content h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .coffee-content p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        /* Reviews Section */
+        .reviews {
+            padding: 8rem 4rem;
+            background: var(--bg-dark);
+            text-align: center;
+        }
+
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            margin-top: 4rem;
+        }
+
+        .review-card {
+            padding: 3rem;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            text-align: left;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .review-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(217, 160, 91, 0.4);
+        }
+
+        .review-quote {
+            font-size: 3rem;
+            color: var(--accent-gold);
+            font-family: 'Playfair Display', serif;
+            line-height: 0;
+            margin-bottom: 2rem;
+            display: block;
+        }
+
+        .review-text {
+            color: var(--text-muted);
+            font-style: italic;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .review-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-gold);
+            color: var(--bg-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-family: 'Playfair Display', serif;
+            border-radius: 50%;
+        }
+
+        @media(max-width: 1024px) {
+            .coffee-grid, .review-grid {
+                grid-template-columns: 1fr;
             }
+            .coffee-images {
+                height: 400px;
+            }
+        }
 
-            50% {
-                opacity: 1;
+        /* Responsive */
+        @media(max-width: 1024px) {
+            .story {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            .contact-info {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            .hero-title {
+                font-size: 4rem;
+            }
+        }
+        
+        @media(max-width: 768px) {
+            nav {
+                padding: 1.5rem 2rem;
+            }
+            .nav-links {
+                display: none;
+            }
+            .hero-title {
+                font-size: 3rem;
+            }
+            .section-title {
+                font-size: 2.5rem;
+            }
+            .hero-buttons {
+                flex-direction: column;
             }
         }
     </style>
@@ -702,260 +587,216 @@
 
 <body>
 
-    <!-- Cursor Glow -->
-    <div class="cursor-glow"></div>
-
-    <!-- Initial Loader -->
-    <div class="loader" id="loader">
-        <div class="loader-text">E=MC²</div>
-    </div>
-
     <!-- Navigation -->
     <nav id="navbar">
-        <a href="#" class="logo">E=MC<span>²</span></a>
+        <a href="#" class="logo">EMC<span>.</span></a>
         <div class="nav-links">
-            <a href="#worlds">Experiences</a>
-            <a href="#philosophy">Story</a>
-            <a href="#reviews">Reviews</a>
-            <a href="#contact">Visit</a>
+            <a href="#about">Our Story</a>
+            <a href="#menu">Menu</a>
+            <a href="#contact">Contact</a>
         </div>
-        <a href="#book" class="btn-book">Reserve Table</a>
+        <a href="#book" class="btn btn-outline" style="padding: 0.6rem 1.5rem; font-size: 0.8rem;">Book Table</a>
     </nav>
 
     <!-- Hero Section -->
-    
     <section class="hero">
-        <div class="floating-element" style="width: 120px; height: 120px; top: 20%; left: 15%; font-size: 1.2rem; text-align: center;">EST.<br>2026</div>
-        <div class="floating-element" style="width: 80px; height: 80px; bottom: 30%; right: 20%; font-size: 2rem;">✨</div>
-        <div class="hero-content">
-
-            <h1>CAFE <span>EMC²</span></h1>
-            <p>Surat's Premium Fusion Hub</p>
+        <div class="hero-content reveal active">
+            <h1 class="hero-title">Experience True Flavor at EMC</h1>
+            <p class="hero-subtitle">Surat's premium destination for authentic Ramen, artisanal Sushi, and handcrafted warm beverages.</p>
+            <div class="hero-buttons">
+                <a href="#book" class="btn">Reserve a Table</a>
+                <a href="#menu" class="btn btn-outline">Explore Menu</a>
+            </div>
         </div>
-        <div class="scroll-indicator">
-            <span style="font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase;">Discover</span>
-            <div class="scroll-line"></div>
+    </section>
+
+    <!-- Story / Ambience -->
+    <section id="about" class="story">
+        <div class="story-image reveal">
+            <img src="assets/ambience_warm.png" alt="Warm Cozy Cafe Interior">
+        </div>
+        <div class="story-content reveal">
+            <div class="section-subtitle" style="text-align: left; margin-bottom: 1rem;">Our Sanctuary</div>
+            <h2>A Cozy Corner in the Heart of Vesu</h2>
+            <p>At EMC Cafe, we believe that great food is best enjoyed in an environment that feels like a warm embrace. We've stepped away from the cold, clinical spaces to bring you a sanctuary of rich wooden textures, soft amber lighting, and the inviting aroma of simmering broths and fresh coffee.</p>
+            <p>Whether you're joining us for an intimate dinner, a celebratory sushi platter, or just a quiet afternoon with our signature matcha cheesecake, every detail of our space is crafted to make you feel right at home.</p>
+            <a href="#contact" class="btn btn-outline" style="margin-top: 1rem;">Visit Us</a>
         </div>
     </section>
 
 
-    <!-- Signature Feature -->
-    <section class="philosophy reveal" style="padding-top: 5rem; padding-bottom: 5rem;">
-        <span class="phi-tag" style="text-align: center;">Beyond the ordinary</span>
-        <h2 class="phi-title" style="font-size: 3rem;">A Journey of <span style="color: var(--accent-gold);">Flavors</span></h2>
+    <!-- Chef Special -->
+    <section class="chef-special reveal">
+        <div class="chef-bg"></div>
+        <div class="chef-content">
+            <div class="section-subtitle" style="margin-bottom: 1rem;">The Chef's Canvas</div>
+            <h3 class="serif">Omakase Experience</h3>
+            <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem;">Trust the chef. Our seasonal omakase features the freshest ingredients masterfully crafted into an unforgettable multi-course dining journey. Available exclusively on weekends.</p>
+            <a href="#book" class="btn btn-outline">Reserve Omakase</a>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu-highlights">
+        <div class="section-subtitle reveal">Culinary Excellence</div>
+        <h2 class="section-title reveal">Popular Dishes</h2>
         
-        <div style="display: flex; gap: 4rem; margin-top: 5rem; text-align: left; align-items: center; max-width: 1200px; margin-inline: auto;">
-            <div style="flex: 1; position: relative;">
-                <div style="aspect-ratio: 4/5; width: 100%; border-radius: 20px; overflow: hidden; position: relative; border: 1px solid var(--glass-border);">
-                    <img src="assets/zabardast.png" style="width: 100%; height: 100%; object-fit: cover; transition: var(--transition);" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        <div class="menu-grid">
+            <!-- Ramen -->
+            <div class="menu-item reveal">
+                <div class="menu-item-image">
+                    <img src="assets/ramen.png" alt="Authentic Ramen">
                 </div>
-                <div style="position: absolute; bottom: -30px; right: -30px; width: 150px; height: 150px; background: var(--bg-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--accent-gold);">
-                    <div style="font-family: 'Outfit'; font-size: 1.5rem; color: var(--accent-gold); text-align: center; animation: pulse 4s infinite;">Zabardast<br><span style="font-size: 0.8rem; color: #fff;">Signature</span></div>
-                </div>
-            </div>
-            <div style="flex: 1;">
-                <h3 style="font-size: 2.5rem; margin-bottom: 2rem; color: white;">The Art of Fusion</h3>
-                <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 2rem;">
-                    Every dish is a carefully crafted masterpiece. We don't just cook food; we design experiences. From the rich, slow-simmered broths of our ramen to the explosive tangy spices of our street food wraps, every bite is meant to transport you.
-                </p>
-                <div style="display: flex; gap: 2rem;">
-                    <div>
-                        <div style="font-size: 2.5rem; color: var(--accent-gold); font-family: 'Outfit'; font-weight: 700;">3</div>
-                        <div style="text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px;">Worlds</div>
+                <div>
+                    <div class="menu-item-header">
+                        <h3 class="menu-item-title">Tonkotsu Ramen</h3>
+                        <span class="menu-item-price">₹650</span>
                     </div>
-                    <div>
-                        <div style="font-size: 2.5rem; color: var(--accent-gold); font-family: 'Outfit'; font-weight: 700;">1</div>
-                        <div style="text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px;">Destination</div>
-                    </div>
+                    <p class="menu-item-desc">Our signature 12-hour slow-simmered rich pork bone broth, served with tender chashu, soft-boiled ajitsuke tamago, wood ear mushrooms, and fresh scallions.</p>
                 </div>
-                <a href="#worlds" class="btn-book" style="display: inline-block; margin-top: 3rem; background: var(--accent-glow); border-color: var(--accent-gold);">Explore Menus</a>
             </div>
+
+            <!-- Sushi -->
+            <div class="menu-item reveal">
+                <div class="menu-item-image">
+                    <img src="assets/sushi_warm.png" alt="Artisan Sushi">
+                </div>
+                <div>
+                    <div class="menu-item-header">
+                        <h3 class="menu-item-title">Dragon Roll Platter</h3>
+                        <span class="menu-item-price">₹850</span>
+                    </div>
+                    <p class="menu-item-desc">Premium artisanal sushi featuring tempura prawn, creamy avocado, topped with fresh unagi (eel), drizzled with our house-made warm savory glaze.</p>
+                </div>
+            </div>
+
+            <!-- Dumplings -->
+            <div class="menu-item reveal">
+                <div class="menu-item-image">
+                    <img src="assets/dumplings_warm.png" alt="Steaming Dumplings">
+                </div>
+                <div>
+                    <div class="menu-item-header">
+                        <h3 class="menu-item-title">Truffle Edamame Dim Sum</h3>
+                        <span class="menu-item-price">₹450</span>
+                    </div>
+                    <p class="menu-item-desc">Delicate, translucent wrappers filled with a creamy edamame puree, subtly infused with white truffle oil, steamed to perfection in bamboo baskets.</p>
+                </div>
+            </div>
+
+            <!-- Dessert -->
+            <div class="menu-item reveal">
+                <div class="menu-item-image">
+                    <img src="assets/dessert_warm.png" alt="Matcha Cheesecake">
+                </div>
+                <div>
+                    <div class="menu-item-header">
+                        <h3 class="menu-item-title">Kyoto Matcha Cheesecake</h3>
+                        <span class="menu-item-price">₹380</span>
+                    </div>
+                    <p class="menu-item-desc">A rich, velvety baked cheesecake heavily infused with ceremonial grade Kyoto matcha, featuring a dark chocolate crumb crust and served warm.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 5rem;" class="reveal">
+            <a href="#" class="btn btn-outline">Download Full Menu (PDF)</a>
         </div>
     </section>
 
 
-    <!-- The Three Worlds -->
-    <section id="worlds" class="worlds">
-        <!-- The Cafe -->
-        <div class="world-card">
-            <div class="world-bg"
-                style="background-image: url('assets/ramen.png');">
+    <!-- Artisanal Coffee Experience -->
+    <section class="coffee-section">
+        <div class="coffee-grid">
+            <div class="coffee-images reveal">
+                <img src="assets/coffee_pour.png" alt="Barista Pouring Coffee" class="coffee-img-1">
+                <img src="assets/interior_detail.png" alt="Cafe Interio Details" class="coffee-img-2">
             </div>
-            <div class="world-content">
-                <h2 class="world-title">The Cafe</h2>
-                <div class="world-desc">Coffee • Ramen • Fusion</div>
-                <div class="world-detail">Experience artisanal coffee roasts and authentic ramen bowls in an atmosphere
-                    designed for comfort, creativity, and connection.</div>
-            </div>
-        </div>
-
-        <!-- Dadho Sutho -->
-        <div class="world-card">
-            <div class="world-bg"
-                style="background-image: url('assets/dadho.png');">
-            </div>
-            <div class="world-content">
-                <h2 class="world-title">Dadho Sutho</h2>
-                <div class="world-desc">Authentic Sindhi Heritage</div>
-                <div class="world-detail">A nostalgic journey through the rich, aromatic spices of traditional Sindhi
-                    cuisine, served with love and legacy.</div>
-            </div>
-        </div>
-
-        <!-- Zabardast -->
-        <div class="world-card">
-            <div class="world-bg"
-                style="background-image: url('assets/zabardast.png');">
-            </div>
-            <div class="world-content">
-                <h2 class="world-title">Zabardast</h2>
-                <div class="world-desc">Street Food Reimagined</div>
-                <div class="world-detail">The electric energy of Indian street food, elevated with premium ingredients
-                    wrapped in unforgettable flavors.</div>
+            <div class="coffee-content reveal">
+                <div class="section-subtitle" style="text-align: left; margin-bottom: 1rem;">Masterfully Brewed</div>
+                <h2>The Art of the Pour</h2>
+                <p>Every great meal deserves a perfect ending, and every morning deserves a flawless start. Our cafe features a dedicated espresso bar manned by passionate baristas who treat every pour like a work of art.</p>
+                <p>We source our beans from the finest high-altitude estates, roasting them in small batches to preserve their unique, delicate flavor profiles. Whether you crave a robust double espresso or a perfectly textured flat white, experience coffee the way it was meant to be.</p>
+                <a href="#menu" class="btn" style="margin-top: 2rem;">Beverage Menu</a>
             </div>
         </div>
     </section>
 
-    <!-- Philosophy -->
-    <section id="philosophy" class="philosophy reveal">
-        <span class="phi-tag">Our Vision</span>
-        <h2 class="phi-title">One Location. <br><span style="color: var(--text-muted); font-style: italic;">Three
-                Distinct Worlds.</span></h2>
-        <p class="phi-desc">
-            At EMC², we believe food is not just fuel; it is a memory. Whether you crave the comforting warmth of a
-            Ramen bowl, the nostalgic spice of Sindhi Dal Pakwan, or the electric rush of a street-style wrap, we have
-            curated a space where every palate finds its masterfully crafted home.
-        </p>
-    </section>
-
-    <!-- Marquee -->
-    <div class="marquee-section">
-        <div class="marquee-content">
-            <span class="marquee-item">ARTISANAL COFFEE</span>
-            <span class="marquee-item">•</span>
-            <span class="marquee-item">AUTHENTIC RAMEN</span>
-            <span class="marquee-item">•</span>
-            <span class="marquee-item">SINDHI DELIGHTS</span>
-            <span class="marquee-item">•</span>
-            <span class="marquee-item">PREMIUM STREET FOOD</span>
-            <span class="marquee-item">•</span>
-            <span class="marquee-item">ARTISANAL COFFEE</span>
-            <span class="marquee-item">•</span>
-            <span class="marquee-item">AUTHENTIC RAMEN</span>
-            <span class="marquee-item">•</span>
-            <span class="marquee-item">SINDHI DELIGHTS</span>
-            <span class="marquee-item">•</span>
-            <span class="marquee-item">PREMIUM STREET FOOD</span>
-        </div>
-    </div>
-
-    <!-- Reviews -->
-    <section id="reviews" class="reviews">
-        <div class="section-header reveal">
-            <h2 class="section-title">Experiences<br><span style="color: var(--accent-gold);">Shared.</span></h2>
-            <div class="rating">★★★★★ <span
-                    style="font-size: 1rem; color: var(--text-muted); font-family: 'Inter'; letter-spacing: 0;">4.4/5 on
-                    Google</span></div>
-        </div>
-
+    <!-- Guest Experiences -->
+    <section class="reviews">
+        <div class="section-subtitle reveal">Testimonials</div>
+        <h2 class="section-title reveal">Guest Experiences</h2>
+        
         <div class="review-grid">
             <div class="review-card reveal">
-                <p class="review-text">"Cafe EMC in Surat is a hidden gem that delights with its excellent service and
-                    delicious offerings. The fusion concept is genuinely executed nicely."</p>
+                <span class="review-quote">"</span>
+                <p class="review-text">An absolute hidden gem in Vesu. The ambiance is incredibly warm and intimate, making it the perfect date spot. The Tonkotsu Ramen is easily the best I've had in Surat.</p>
                 <div class="review-author">
-                    <div class="author-avatar" style="background: #e2e8f0; color: #1e293b;">V</div>
-                    <div class="author-info">
-                        <h4>Vansh Samiyani</h4>
-                        <p>Local Guide</p>
+                    <div class="author-icon">S</div>
+                    <div>
+                        <div style="color: var(--text-main); font-weight: 500;">Sneha Desai</div>
+                        <div style="color: var(--text-muted); font-size: 0.85rem;">Local Guide</div>
                     </div>
                 </div>
             </div>
 
             <div class="review-card reveal" style="transition-delay: 0.1s;">
-                <p class="review-text">"Surat's Best and Cleanest Cafe. Great ambiance with fun games, books, and music
-                    that matches the vibe. A must visit for weekends."</p>
+                <span class="review-quote">"</span>
+                <p class="review-text">The sushi here is phenomenally fresh and creatively plated. You can tell they care deeply about the culinary experience. Don't skip the ceremonial matcha cheesecake!</p>
                 <div class="review-author">
-                    <div class="author-avatar" style="background: #fcd34d; color: #92400e;">R</div>
-                    <div class="author-info">
-                        <h4>Rahul Mehta</h4>
-                        <p>Food Critic</p>
+                    <div class="author-icon">R</div>
+                    <div>
+                        <div style="color: var(--text-main); font-weight: 500;">Rahul Mehta</div>
+                        <div style="color: var(--text-muted); font-size: 0.85rem;">Food Critic</div>
                     </div>
                 </div>
             </div>
 
             <div class="review-card reveal" style="transition-delay: 0.2s;">
-                <p class="review-text">"The Ramen is authentic and the coffee is top tier. Love the three distinct brand
-                    experience. Finally a place in Vesu that feels truly premium."</p>
+                <span class="review-quote">"</span>
+                <p class="review-text">Stepping into EMC feels like leaving Surat and entering a premium Tokyo cafe. The lighting, the music, the flavors—everything is curated to perfection. Exceptional.</p>
                 <div class="review-author">
-                    <div class="author-avatar" style="background: #fdba74; color: #9a3412;">P</div>
-                    <div class="author-info">
-                        <h4>Priya Patel</h4>
-                        <p>Regular Customer</p>
+                    <div class="author-icon">K</div>
+                    <div>
+                        <div style="color: var(--text-main); font-weight: 500;">Karan Patel</div>
+                        <div style="color: var(--text-muted); font-size: 0.85rem;">Regular Guest</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Footer / Reservation -->
     <footer id="contact">
         <div class="footer-content reveal">
-            <h2 class="footer-title">Let's Meet.</h2>
-
+            <div class="footer-logo serif">EMC<span>.</span></div>
+            <h2 class="serif" style="font-size: 2.5rem; margin-bottom: 3rem;">Ready for an unforgettable evening?</h2>
+            
             <div class="contact-info">
-                <div class="contact-item">
-                    <div class="contact-icon">📍</div>
-                    <div class="contact-text">Plot No. 5, VIP Road,<br>Opp. 7 Heavens Apartment, Next to Gail
-                        Colony,<br>Vesu, Surat, Gujarat 395007</div>
+                <div class="contact-block">
+                    <h4>Location</h4>
+                    <p>Plot No. 5, VIP Road<br>Vesu, Surat, Gujarat 395007</p>
                 </div>
-                <div class="contact-item">
-                    <div class="contact-icon">📞</div>
-                    <div class="contact-text">+91 96878 72715</div>
+                <div class="contact-block">
+                    <h4>Hours</h4>
+                    <p>Tue - Sun: 4:00 PM - 11:30 PM<br>Monday: Closed</p>
                 </div>
-                <div class="contact-item">
-                    <div class="contact-icon">🕰️</div>
-                    <div class="contact-text">Tue - Sun: 4:00 PM - 11:30 PM<br>(Monday Closed)</div>
+                <div class="contact-block">
+                    <h4>Reserve</h4>
+                    <p>+91 96878 72715<br>hello@emccafe.in</p>
                 </div>
             </div>
 
-            <a href="#book" class="btn-book" style="display: inline-block;">Make a Reservation</a>
+            <a id="book" href="#" class="btn">Book Your Table</a>
         </div>
 
-        <a href="https://maps.google.com/?q=EMC+Surat" target="_blank" class="footer-map">
-            <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=2074&auto=format&fit=crop"
-                alt="Cafe Location">
-            <div class="map-overlay">
-                <div class="map-btn">
-                    <span style="font-size: 1.5rem;">📍</span>
-                    <div>
-                        <div style="font-weight: bold; font-family: 'Outfit';">VIP Road, Vesu</div>
-                        <div
-                            style="font-size: 0.7rem; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 2px;">
-                            Tap for Directions</div>
-                    </div>
-                </div>
-            </div>
-        </a>
-
         <div class="copyright">
-            &copy; 2026 EMC² Cafe Surat • All Rights Reserved
+            &copy; 2026 EMC Cafe Surat. All Rights Reserved.
         </div>
     </footer>
 
     <!-- Scripts -->
     <script>
-        // Loader
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const loader = document.getElementById('loader');
-                loader.style.opacity = '0';
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                    document.querySelector('.hero-content').style.transform = 'translateY(0)';
-                }, 1000);
-            }, 800);
-        });
-
         // Navbar Scroll Effect
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
@@ -969,8 +810,8 @@
         // Reveal Animations on Scroll
         const revealElements = document.querySelectorAll('.reveal');
 
+        const windowHeight = window.innerHeight;
         const revealOnScroll = () => {
-            const windowHeight = window.innerHeight;
             revealElements.forEach(el => {
                 const elementTop = el.getBoundingClientRect().top;
                 if (elementTop < windowHeight - 100) {
@@ -980,7 +821,8 @@
         };
 
         window.addEventListener('scroll', revealOnScroll);
-        revealOnScroll(); // Trigger once on load
+        // Trigger once on load for elements already in view
+        setTimeout(revealOnScroll, 100); 
 
         // Smooth Scroll for Nav Links
         document.querySelectorAll('a[href^=\"#\"]').forEach(anchor => {
@@ -992,37 +834,12 @@
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
                     window.scrollTo({
-                        top: targetElement.offsetTop,
+                        top: targetElement.offsetTop - 80, // Offset for navbar
                         behavior: 'smooth'
                     });
                 }
             });
         });
-
-        // Cursor Glow
-        const cursorGlow = document.querySelector('.cursor-glow');
-        window.addEventListener('mousemove', (e) => {
-            cursorGlow.style.left = e.clientX + 'px';
-            cursorGlow.style.top = e.clientY + 'px';
-        });
-        
-        document.querySelectorAll('a, .btn-book, .world-card, img, .floating-element').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursorGlow.style.width = '400px';
-                cursorGlow.style.height = '400px';
-                cursorGlow.style.background = 'radial-gradient(circle, rgba(212, 175, 55, 0.4) 0%, transparent 70%)';
-                cursorGlow.style.opacity = '1';
-                cursorGlow.style.mixBlendMode = 'hard-light';
-            });
-            el.addEventListener('mouseleave', () => {
-                cursorGlow.style.width = '300px';
-                cursorGlow.style.height = '300px';
-                cursorGlow.style.background = 'radial-gradient(circle, var(--accent-glow) 0%, transparent 70%)';
-                cursorGlow.style.opacity = '0.7';
-                cursorGlow.style.mixBlendMode = 'screen';
-            });
-        });
-
     </script>
 </body>
 
