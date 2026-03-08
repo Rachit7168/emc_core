@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EMC Cafe | Vesu, Surat</title>
     <!-- Warm, elegant fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             /* Warm, cozy color palette */
@@ -34,7 +36,11 @@
             line-height: 1.6;
         }
 
-        h1, h2, h3, h4, .serif {
+        h1,
+        h2,
+        h3,
+        h4,
+        .serif {
             font-family: 'Playfair Display', serif;
         }
 
@@ -45,7 +51,7 @@
             margin-bottom: 1rem;
             color: var(--text-main);
         }
-        
+
         .section-subtitle {
             text-align: center;
             color: var(--accent-gold);
@@ -162,12 +168,10 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(
-                to bottom,
-                rgba(18, 15, 13, 0.6) 0%,
-                rgba(18, 15, 13, 0.8) 50%,
-                var(--bg-dark) 100%
-            );
+            background: linear-gradient(to bottom,
+                    rgba(18, 15, 13, 0.6) 0%,
+                    rgba(18, 15, 13, 0.8) 50%,
+                    var(--bg-dark) 100%);
             z-index: 2;
         }
 
@@ -182,7 +186,7 @@
             font-size: 5.5rem;
             line-height: 1.1;
             margin-bottom: 1.5rem;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
 
         .hero-subtitle {
@@ -213,7 +217,7 @@
             position: relative;
             border-radius: 4px;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
         .story-image img {
@@ -258,7 +262,6 @@
             display: flex;
             flex-direction: column;
             gap: 2rem;
-            group: hover;
         }
 
         .menu-item-image {
@@ -279,7 +282,7 @@
         .menu-item:hover .menu-item-image img {
             transform: scale(1.05);
         }
-        
+
         .menu-item-image::after {
             content: '';
             position: absolute;
@@ -348,7 +351,7 @@
             letter-spacing: 2px;
             margin-bottom: 1rem;
         }
-        
+
         .contact-block p {
             font-size: 1rem;
             line-height: 1.6;
@@ -360,6 +363,120 @@
             border-top: 1px solid var(--glass-border);
             color: var(--text-muted);
             font-size: 0.9rem;
+        }
+
+
+        /* Instagram Feed */
+        .instagram-feed {
+            padding: 8rem 0 0 0;
+            background: var(--bg-dark);
+        }
+
+        .ig-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .ig-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+        }
+
+        .ig-item {
+            position: relative;
+            aspect-ratio: 1/1;
+            overflow: hidden;
+            display: block;
+        }
+
+        .ig-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .ig-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(18, 15, 13, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .ig-item:hover .ig-overlay {
+            opacity: 1;
+        }
+
+        .ig-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .ig-icon {
+            color: var(--text-main);
+            font-size: 2rem;
+        }
+
+        /* Map Section */
+        .map-section {
+            width: 100%;
+            height: 400px;
+            margin-top: 5rem;
+            position: relative;
+            overflow: hidden;
+            display: block;
+        }
+
+        .map-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) brightness(0.4);
+            transition: var(--transition);
+        }
+
+        .map-section:hover img {
+            filter: grayscale(30%) brightness(0.8);
+            transform: scale(1.05);
+        }
+
+        .map-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .map-btn {
+            padding: 1rem 3rem;
+            background: rgba(18, 15, 13, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 4px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: var(--transition);
+            pointer-events: auto;
+        }
+
+        .map-section:hover .map-btn {
+            border-color: var(--accent-gold);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        @media(max-width: 1024px) {
+            .ig-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         /* Utilities */
@@ -374,7 +491,7 @@
             transform: translateY(0);
         }
 
-        
+
         /* Chef Special */
         .chef-special {
             padding: 8rem 4rem;
@@ -443,7 +560,7 @@
             object-fit: cover;
             border-radius: 4px;
             z-index: 2;
-            box-shadow: 20px 20px 40px rgba(0,0,0,0.5);
+            box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.5);
         }
 
         .coffee-img-2 {
@@ -539,9 +656,12 @@
         }
 
         @media(max-width: 1024px) {
-            .coffee-grid, .review-grid {
+
+            .coffee-grid,
+            .review-grid {
                 grid-template-columns: 1fr;
             }
+
             .coffee-images {
                 height: 400px;
             }
@@ -553,31 +673,38 @@
                 grid-template-columns: 1fr;
                 gap: 4rem;
             }
+
             .menu-grid {
                 grid-template-columns: 1fr;
             }
+
             .contact-info {
                 flex-direction: column;
                 gap: 2rem;
             }
+
             .hero-title {
                 font-size: 4rem;
             }
         }
-        
+
         @media(max-width: 768px) {
             nav {
                 padding: 1.5rem 2rem;
             }
+
             .nav-links {
                 display: none;
             }
+
             .hero-title {
                 font-size: 3rem;
             }
+
             .section-title {
                 font-size: 2.5rem;
             }
+
             .hero-buttons {
                 flex-direction: column;
             }
@@ -602,7 +729,8 @@
     <section class="hero">
         <div class="hero-content reveal active">
             <h1 class="hero-title">Experience True Flavor at EMC</h1>
-            <p class="hero-subtitle">Surat's premium destination for authentic Ramen, artisanal Sushi, and handcrafted warm beverages.</p>
+            <p class="hero-subtitle">Surat's premium destination for authentic Ramen, artisanal Sushi, and handcrafted
+                warm beverages.</p>
             <div class="hero-buttons">
                 <a href="#book" class="btn">Reserve a Table</a>
                 <a href="#menu" class="btn btn-outline">Explore Menu</a>
@@ -618,8 +746,12 @@
         <div class="story-content reveal">
             <div class="section-subtitle" style="text-align: left; margin-bottom: 1rem;">Our Sanctuary</div>
             <h2>A Cozy Corner in the Heart of Vesu</h2>
-            <p>At EMC Cafe, we believe that great food is best enjoyed in an environment that feels like a warm embrace. We've stepped away from the cold, clinical spaces to bring you a sanctuary of rich wooden textures, soft amber lighting, and the inviting aroma of simmering broths and fresh coffee.</p>
-            <p>Whether you're joining us for an intimate dinner, a celebratory sushi platter, or just a quiet afternoon with our signature matcha cheesecake, every detail of our space is crafted to make you feel right at home.</p>
+            <p>At EMC Cafe, we believe that great food is best enjoyed in an environment that feels like a warm embrace.
+                We've stepped away from the cold, clinical spaces to bring you a sanctuary of rich wooden textures, soft
+                amber lighting, and the inviting aroma of simmering broths and fresh coffee.</p>
+            <p>Whether you're joining us for an intimate dinner, a celebratory sushi platter, or just a quiet afternoon
+                with our signature matcha cheesecake, every detail of our space is crafted to make you feel right at
+                home.</p>
             <a href="#contact" class="btn btn-outline" style="margin-top: 1rem;">Visit Us</a>
         </div>
     </section>
@@ -631,7 +763,9 @@
         <div class="chef-content">
             <div class="section-subtitle" style="margin-bottom: 1rem;">The Chef's Canvas</div>
             <h3 class="serif">Omakase Experience</h3>
-            <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem;">Trust the chef. Our seasonal omakase features the freshest ingredients masterfully crafted into an unforgettable multi-course dining journey. Available exclusively on weekends.</p>
+            <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem;">Trust the chef. Our seasonal
+                omakase features the freshest ingredients masterfully crafted into an unforgettable multi-course dining
+                journey. Available exclusively on weekends.</p>
             <a href="#book" class="btn btn-outline">Reserve Omakase</a>
         </div>
     </section>
@@ -640,7 +774,7 @@
     <section id="menu" class="menu-highlights">
         <div class="section-subtitle reveal">Culinary Excellence</div>
         <h2 class="section-title reveal">Popular Dishes</h2>
-        
+
         <div class="menu-grid">
             <!-- Ramen -->
             <div class="menu-item reveal">
@@ -650,9 +784,10 @@
                 <div>
                     <div class="menu-item-header">
                         <h3 class="menu-item-title">Tonkotsu Ramen</h3>
-                        <span class="menu-item-price">₹650</span>
+                        <span class="menu-item-price">â‚¹650</span>
                     </div>
-                    <p class="menu-item-desc">Our signature 12-hour slow-simmered rich pork bone broth, served with tender chashu, soft-boiled ajitsuke tamago, wood ear mushrooms, and fresh scallions.</p>
+                    <p class="menu-item-desc">Our signature 12-hour slow-simmered rich pork bone broth, served with
+                        tender chashu, soft-boiled ajitsuke tamago, wood ear mushrooms, and fresh scallions.</p>
                 </div>
             </div>
 
@@ -664,9 +799,10 @@
                 <div>
                     <div class="menu-item-header">
                         <h3 class="menu-item-title">Dragon Roll Platter</h3>
-                        <span class="menu-item-price">₹850</span>
+                        <span class="menu-item-price">â‚¹850</span>
                     </div>
-                    <p class="menu-item-desc">Premium artisanal sushi featuring tempura prawn, creamy avocado, topped with fresh unagi (eel), drizzled with our house-made warm savory glaze.</p>
+                    <p class="menu-item-desc">Premium artisanal sushi featuring tempura prawn, creamy avocado, topped
+                        with fresh unagi (eel), drizzled with our house-made warm savory glaze.</p>
                 </div>
             </div>
 
@@ -678,9 +814,10 @@
                 <div>
                     <div class="menu-item-header">
                         <h3 class="menu-item-title">Truffle Edamame Dim Sum</h3>
-                        <span class="menu-item-price">₹450</span>
+                        <span class="menu-item-price">â‚¹450</span>
                     </div>
-                    <p class="menu-item-desc">Delicate, translucent wrappers filled with a creamy edamame puree, subtly infused with white truffle oil, steamed to perfection in bamboo baskets.</p>
+                    <p class="menu-item-desc">Delicate, translucent wrappers filled with a creamy edamame puree, subtly
+                        infused with white truffle oil, steamed to perfection in bamboo baskets.</p>
                 </div>
             </div>
 
@@ -692,13 +829,14 @@
                 <div>
                     <div class="menu-item-header">
                         <h3 class="menu-item-title">Kyoto Matcha Cheesecake</h3>
-                        <span class="menu-item-price">₹380</span>
+                        <span class="menu-item-price">â‚¹380</span>
                     </div>
-                    <p class="menu-item-desc">A rich, velvety baked cheesecake heavily infused with ceremonial grade Kyoto matcha, featuring a dark chocolate crumb crust and served warm.</p>
+                    <p class="menu-item-desc">A rich, velvety baked cheesecake heavily infused with ceremonial grade
+                        Kyoto matcha, featuring a dark chocolate crumb crust and served warm.</p>
                 </div>
             </div>
         </div>
-        
+
         <div style="text-align: center; margin-top: 5rem;" class="reveal">
             <a href="#" class="btn btn-outline">Download Full Menu (PDF)</a>
         </div>
@@ -715,8 +853,12 @@
             <div class="coffee-content reveal">
                 <div class="section-subtitle" style="text-align: left; margin-bottom: 1rem;">Masterfully Brewed</div>
                 <h2>The Art of the Pour</h2>
-                <p>Every great meal deserves a perfect ending, and every morning deserves a flawless start. Our cafe features a dedicated espresso bar manned by passionate baristas who treat every pour like a work of art.</p>
-                <p>We source our beans from the finest high-altitude estates, roasting them in small batches to preserve their unique, delicate flavor profiles. Whether you crave a robust double espresso or a perfectly textured flat white, experience coffee the way it was meant to be.</p>
+                <p>Every great meal deserves a perfect ending, and every morning deserves a flawless start. Our cafe
+                    features a dedicated espresso bar manned by passionate baristas who treat every pour like a work of
+                    art.</p>
+                <p>We source our beans from the finest high-altitude estates, roasting them in small batches to preserve
+                    their unique, delicate flavor profiles. Whether you crave a robust double espresso or a perfectly
+                    textured flat white, experience coffee the way it was meant to be.</p>
                 <a href="#menu" class="btn" style="margin-top: 2rem;">Beverage Menu</a>
             </div>
         </div>
@@ -726,11 +868,12 @@
     <section class="reviews">
         <div class="section-subtitle reveal">Testimonials</div>
         <h2 class="section-title reveal">Guest Experiences</h2>
-        
+
         <div class="review-grid">
             <div class="review-card reveal">
                 <span class="review-quote">"</span>
-                <p class="review-text">An absolute hidden gem in Vesu. The ambiance is incredibly warm and intimate, making it the perfect date spot. The Tonkotsu Ramen is easily the best I've had in Surat.</p>
+                <p class="review-text">An absolute hidden gem in Vesu. The ambiance is incredibly warm and intimate,
+                    making it the perfect date spot. The Tonkotsu Ramen is easily the best I've had in Surat.</p>
                 <div class="review-author">
                     <div class="author-icon">S</div>
                     <div>
@@ -742,7 +885,8 @@
 
             <div class="review-card reveal" style="transition-delay: 0.1s;">
                 <span class="review-quote">"</span>
-                <p class="review-text">The sushi here is phenomenally fresh and creatively plated. You can tell they care deeply about the culinary experience. Don't skip the ceremonial matcha cheesecake!</p>
+                <p class="review-text">The sushi here is phenomenally fresh and creatively plated. You can tell they
+                    care deeply about the culinary experience. Don't skip the ceremonial matcha cheesecake!</p>
                 <div class="review-author">
                     <div class="author-icon">R</div>
                     <div>
@@ -754,7 +898,8 @@
 
             <div class="review-card reveal" style="transition-delay: 0.2s;">
                 <span class="review-quote">"</span>
-                <p class="review-text">Stepping into EMC feels like leaving Surat and entering a premium Tokyo cafe. The lighting, the music, the flavors—everything is curated to perfection. Exceptional.</p>
+                <p class="review-text">Stepping into EMC feels like leaving Surat and entering a premium Tokyo cafe. The
+                    lighting, the music, the flavorsâ€”everything is curated to perfection. Exceptional.</p>
                 <div class="review-author">
                     <div class="author-icon">K</div>
                     <div>
@@ -766,12 +911,39 @@
         </div>
     </section>
 
+
+    <!-- Instagram Feed -->
+    <section class="instagram-feed reveal">
+        <div class="ig-header">
+            <div class="section-subtitle">Follow Our Journey</div>
+            <h2 class="serif" style="font-size: 2.5rem; color: var(--text-main);">@emc.cafe</h2>
+        </div>
+        <div class="ig-grid">
+            <a href="#" class="ig-item">
+                <img src="assets/ig_latte.png" alt="Latte Art">
+                <div class="ig-overlay"><span class="ig-icon">ðŸ“¸</span></div>
+            </a>
+            <a href="#" class="ig-item">
+                <img src="assets/ig_sushi.png" alt="Aburi Sushi">
+                <div class="ig-overlay"><span class="ig-icon">ðŸ“¸</span></div>
+            </a>
+            <a href="#" class="ig-item">
+                <img src="assets/ig_vibe.png" alt="Cafe Vibes">
+                <div class="ig-overlay"><span class="ig-icon">ðŸ“¸</span></div>
+            </a>
+            <a href="#" class="ig-item">
+                <img src="assets/ig_ramen.png" alt="Ramen Pull">
+                <div class="ig-overlay"><span class="ig-icon">ðŸ“¸</span></div>
+            </a>
+        </div>
+    </section>
+
     <!-- Footer / Reservation -->
     <footer id="contact">
         <div class="footer-content reveal">
             <div class="footer-logo serif">EMC<span>.</span></div>
             <h2 class="serif" style="font-size: 2.5rem; margin-bottom: 3rem;">Ready for an unforgettable evening?</h2>
-            
+
             <div class="contact-info">
                 <div class="contact-block">
                     <h4>Location</h4>
@@ -789,6 +961,20 @@
 
             <a id="book" href="#" class="btn">Book Your Table</a>
         </div>
+
+
+        <a href="https://maps.app.goo.gl/WbWJf2yCjzAoPRTP6" target="_blank" class="map-section reveal" style="width: 100vw; margin-left: calc(-50vw + 50%); margin-bottom: 2rem; text-decoration: none;">
+            <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=2074&auto=format&fit=crop" alt="EMC Cafe Location on Map">
+            <div class="map-overlay">
+                <div class="map-btn">
+                    <span style="font-size: 1.5rem;">📍</span>
+                    <div style="text-align: left;">
+                        <div style="font-weight: bold; font-family: 'Playfair Display', serif; font-size: 1.2rem;">VIP Road, Vesu</div>
+                        <div style="font-size: 0.75rem; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 2px; font-family: 'Inter', sans-serif;">Tap for Directions</div>
+                    </div>
+                </div>
+            </div>
+        </a>
 
         <div class="copyright">
             &copy; 2026 EMC Cafe Surat. All Rights Reserved.
@@ -822,7 +1008,7 @@
 
         window.addEventListener('scroll', revealOnScroll);
         // Trigger once on load for elements already in view
-        setTimeout(revealOnScroll, 100); 
+        setTimeout(revealOnScroll, 100);
 
         // Smooth Scroll for Nav Links
         document.querySelectorAll('a[href^=\"#\"]').forEach(anchor => {
